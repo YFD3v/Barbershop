@@ -7,7 +7,7 @@ Utiliando o prisma como ORM ao invés do sequelize
 2. Criei a seed manualmente na pasta prisma 
 2.1 Instalei o ts-node -D e coloquei uma chave "prisma" no package.json
 2.2 Executei npx prisma db seed
-
+3. Instalei o shadcnUi - npx shadcn-ui@latest init
 
 
 npx prisma studio 
