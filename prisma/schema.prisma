@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//Aqui é onde vamos criar as tabelas
+
+model User {
+  id       String    @id @default(uuid())
+  name     String
+  //Estabelecendo as relações das tabelas
+  bookings Booking[]
+}
+
+model Barbershop {
+  id       String    @id @default(uuid())
+  name     String
+  address  String
+  imageUrl String
+  //Estabelecendo as relações das tabelas
+  bookings Booking[]
+  services Service[]
+}
+
+model Service {
+  id           String     @id @default(uuid())
+  name         String
+  price        Decimal    @db.Decimal(10, 2)
+  //Estabelecendo uma relação one to many de barbershop par ao service
+  barbershopId String
+  barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
+  description  String
+  //Estabelecendo as relações das tabelas
+  bookings     Booking[]
+}
+
+model Booking {
+  //Estabelecendo as relações
+  id           String     @id @default(uuid())
+  userId       String
+  user         User       @relation(fields: [userId], references: [id])
+  serviceId    String
+  service      Service    @relation(fields: [serviceId], references: [id])
+  barbershopId String
+  barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
+}
+
+//Rodei npx prisma format para formatar
