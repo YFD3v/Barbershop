@@ -39,6 +39,7 @@ model Service {
   description  String
   //Estabelecendo as relações das tabelas
   bookings     Booking[]
+  imageUrl String
 }
 
 model Booking {
@@ -52,4 +53,4 @@ model Booking {
   barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
 }
 
-//Rodei npx prisma format para formatar
+//Rodei npx prisma format para formatar, e adicionar as relações

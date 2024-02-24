@@ -10,4 +10,12 @@ Utiliando o prisma como ORM ao invés do sequelize
 3. Instalei o shadcnUi - npx shadcn-ui@latest init
 
 
+#Basicamente na aula 1 foi feito o banco de dados, tabelas, população de tabelas e homePage
+
+
+Parte 2
+
+
+
+
 npx prisma studio 
