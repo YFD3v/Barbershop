@@ -18,4 +18,8 @@ Foi corrigido a falta da imageUrl no services, e rodou a migrate denovo
 
 
 
+Mostra as tabelas organizadas
 npx prisma studio 
+
+Atualiza o db com o prisma
+npx prisma db push
