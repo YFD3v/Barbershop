@@ -24,6 +24,9 @@ criei a credencial adicionando em Origens Javascript Autorizadas:
 http:localhost:3000 //No depoly terá que mudar
 E em um URIS de redirecionamento autorizados eu coloquei o que a documentação do next Auth fala http://localhost:3000/api/auth/callback/google
 Depois peguei o client id e secret criei uma variavel no env e configurei no route.ts
+Enviei para produção o projeto pelo google.
+Criei o AuthProvider, e englobei no Layout pois a documentação pede isso
+INstalei o npx prisma shadcn-ui@latest add sheet
 
 
 Mostra as tabelas organizadas
