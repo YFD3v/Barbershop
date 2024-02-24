@@ -14,7 +14,10 @@ Utiliando o prisma como ORM ao invés do sequelize
 
 
 Parte 2
-Foi corrigido a falta da imageUrl no services, e rodou a migrate denovo
+Foi corrigido a falta da imageUrl no services,  rodou a migrate denovo.
+Criou a pagina ed barbershops[id]
+Instalei o next-auth e @auth/prisma-adapter
+Fiz as atualizações no schema e rodei a migrate
 
 
 
