@@ -4,14 +4,13 @@ import { db } from "@/app/_lib/prisma";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth from "next-auth";
 import { Adapter } from "next-auth/adapters";
-import Google from "next-auth/providers/google";
+import GoogleProvider from "next-auth/providers/google";
 
 const handler = NextAuth({
   //Indicando o adaptador que será utilizado, nesse caso o Prisma
   adapter: PrismaAdapter(db) as Adapter,
-  //Indicando os provedores das informações
   providers: [
-    Google({
+    GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),

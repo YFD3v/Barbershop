@@ -26,7 +26,7 @@ E em um URIS de redirecionamento autorizados eu coloquei o que a documentação 
 Depois peguei o client id e secret criei uma variavel no env e configurei no route.ts
 Enviei para produção o projeto pelo google.
 Criei o AuthProvider, e englobei no Layout pois a documentação pede isso
-INstalei o npx prisma shadcn-ui@latest add sheet
+INstalei o npx shadcn-ui@latest add sheet
 
 
 Mostra as tabelas organizadas
