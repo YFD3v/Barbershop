@@ -19,6 +19,11 @@ Criou a pagina ed barbershops[id]
 Instalei o next-auth e @auth/prisma-adapter
 Fiz as atualizações no schema e rodei a migrate
 
+Depois fui no google developer console, criei o projeto do FSW barber
+criei a credencial adicionando em Origens Javascript Autorizadas:
+http:localhost:3000 //No depoly terá que mudar
+E em um URIS de redirecionamento autorizados eu coloquei o que a documentação do next Auth fala http://localhost:3000/api/auth/callback/google
+Depois peguei o client id e secret criei uma variavel no env e configurei no route.ts
 
 
 Mostra as tabelas organizadas
