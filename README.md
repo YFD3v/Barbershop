@@ -14,7 +14,7 @@ Utiliando o prisma como ORM ao invés do sequelize
 
 
 Parte 2
-
+Foi corrigido a falta da imageUrl no services, e rodou a migrate denovo
 
 
 
