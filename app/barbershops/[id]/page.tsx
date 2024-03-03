@@ -2,6 +2,8 @@
 import { db } from "@/app/_lib/prisma";
 import BarbershopInfo from "./_components/BarbershopInfo";
 import ServiceItem from "./_components/ServiceItem";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 interface BarberShopDetailsPageProps {
   //Resgatando o param id da URL
@@ -13,6 +15,9 @@ interface BarberShopDetailsPageProps {
 const BarberShopDetailsPage = async ({
   params,
 }: BarberShopDetailsPageProps) => {
+  //Usando em server ccomponentes para pegar a session ao inves de useSession
+  const session = await getServerSession(authOptions);
+
   if (!params.id) {
     //Redirecionar para home page
     return null;
@@ -32,7 +37,12 @@ const BarberShopDetailsPage = async ({
       <BarbershopInfo barbershop={barbershop} />
       <div className="px-5 py-3 flex flex-col gap-4">
         {barbershop.services.map((service) => (
-          <ServiceItem key={service.id} service={service} />
+          <ServiceItem
+            key={service.id}
+            service={service}
+            isAuthenticaded={!!session?.user}
+            barbershop={barbershop}
+          />
         ))}
       </div>
     </div>
