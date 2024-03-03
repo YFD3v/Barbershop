@@ -49,11 +49,11 @@ const ServiceItem = ({
   useEffect(() => {
     if (!date) return;
     const refreshAvailableHours = async () => {
-      const _dayBookings = await getDayBookings(date);
+      const _dayBookings = await getDayBookings(barbershop.id,date);
       setDayBookings(_dayBookings);
     };
     refreshAvailableHours();
-  }, [date]);
+  }, [date, barbershop.id]);
   //
   const handleHourClick = (time: string) => {
     setHour(time);
@@ -107,7 +107,6 @@ const ServiceItem = ({
       //se houver alguma reserva em "dayBookings" com a hora e minutos igual a time, não incluir
       const timeHour = +time.split(":")[0];
       const timeMinutes = +time.split(":")[1];
-      console.log(dayBookings);
       const booking = dayBookings.find((booking) => {
         const bookingHour = booking.date.getHours();
         const bookingMinutes = booking.date.getMinutes();
