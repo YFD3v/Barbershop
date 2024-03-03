@@ -34,3 +34,7 @@ npx prisma studio
 
 Atualiza o db com o prisma
 npx prisma db push
+
+AO fazer uma mudança no schema e relizar a migrate com:
+npx prisma migrate dev --name "nome"
+Use npx prisma generate para atualizar as definições do Typescrip do prisma
