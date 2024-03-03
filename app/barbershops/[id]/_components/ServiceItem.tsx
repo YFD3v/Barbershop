@@ -13,11 +13,13 @@ import {
 } from "@/app/_components/ui/sheet";
 import { Barbershop, Service } from "@prisma/client";
 import { ptBR } from "date-fns/locale/pt-BR";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import { generateDayTimeList } from "../_helpers/hours";
-import { format } from "date-fns";
+import { format, setHours, setMinutes } from "date-fns";
+import { saveBooking } from "../_action/SaveBooking";
+import { Loader2 } from "lucide-react";
 
 interface ServiceItemProps {
   barbershop: Barbershop;
@@ -33,6 +35,9 @@ const ServiceItem = ({
   //Aula 3 fazendo a reserva
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [hour, setHour] = useState<string | undefined>();
+  const [submitIsLoading, setSubmitIsLoading] = useState(false);
+
+  const { data } = useSession();
 
   const handleHourClick = (time: string) => {
     setHour(time);
@@ -41,6 +46,29 @@ const ServiceItem = ({
   const handleDateClick = (date: Date | undefined) => {
     setDate(date);
     setHour(undefined);
+  };
+
+  const handleBookingSubmit = async () => {
+    setSubmitIsLoading(true);
+    try {
+      if (!hour || !date || !data?.user) {
+        return;
+      }
+
+      const dateHour = +hour.split(":")[0];
+      const dateMinutes = +hour.split(":")[1];
+      const newDate = setMinutes(setHours(date, dateHour), dateMinutes);
+      await saveBooking({
+        serviceId: service.id,
+        barbershopId: barbershop.id,
+        date: newDate,
+        userId: (data?.user as any).id,
+      });
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setSubmitIsLoading(false);
+    }
   };
 
   //UseMemo so executa a função se o array de dependencia mudar
@@ -158,14 +186,8 @@ const ServiceItem = ({
                           )}
                           {hour && (
                             <div className="flex justify-between">
-                              <h3 className="text-gray-400 text-sm">
-                                Horário{" "}
-                              </h3>
-                              <h4 className="text-sm">
-                                {format(hour, "dd 'de' MMMM", {
-                                  locale: ptBR,
-                                })}
-                              </h4>
+                              <h3 className="text-gray-400 text-sm">Horário</h3>
+                              <h4 className="text-sm">{hour}</h4>
                             </div>
                           )}
                           <div className="flex justify-between">
@@ -174,8 +196,14 @@ const ServiceItem = ({
                           </div>
                         </CardContent>
                       </Card>
-                      <SheetFooter className="px-5">
-                        <Button disabled={!hour || !date}>
+                      <SheetFooter className="p-5">
+                        <Button
+                          onClick={handleBookingSubmit}
+                          disabled={!hour || !date || submitIsLoading}
+                        >
+                          {submitIsLoading && (
+                            <Loader2 className="mr-2 h-6 w-4 animate-spin" />
+                          )}
                           Confirmar Reserva
                         </Button>
                       </SheetFooter>
