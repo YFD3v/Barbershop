@@ -11,17 +11,18 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/app/_components/ui/sheet";
-import { Barbershop, Service } from "@prisma/client";
+import { Barbershop, Booking, Service } from "@prisma/client";
 import { ptBR } from "date-fns/locale/pt-BR";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { generateDayTimeList } from "../_helpers/hours";
 import { format, setHours, setMinutes } from "date-fns";
 import { saveBooking } from "../_action/SaveBooking";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { getDayBookings } from "../_action/GetDayBookings";
 
 interface ServiceItemProps {
   barbershop: Barbershop;
@@ -39,10 +40,21 @@ const ServiceItem = ({
   const [hour, setHour] = useState<string | undefined>();
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
   const [sheeIsOpen, setSheetIsOpen] = useState(false);
+  const [dayBookings, setDayBookings] = useState<Booking[]>([]);
 
   const { data } = useSession();
   const router = useRouter();
 
+  //Logica verificação para não poder reservar em um horario já reservado
+  useEffect(() => {
+    if (!date) return;
+    const refreshAvailableHours = async () => {
+      const _dayBookings = await getDayBookings(date);
+      setDayBookings(_dayBookings);
+    };
+    refreshAvailableHours();
+  }, [date]);
+  //
   const handleHourClick = (time: string) => {
     setHour(time);
   };
@@ -89,8 +101,23 @@ const ServiceItem = ({
 
   //UseMemo so executa a função se o array de dependencia mudar
   const timeList = useMemo(() => {
-    return date ? generateDayTimeList(date) : [];
-  }, [date]);
+    if (!date) return [];
+    return generateDayTimeList(date).filter((time) => {
+      //time : "09:00"
+      //se houver alguma reserva em "dayBookings" com a hora e minutos igual a time, não incluir
+      const timeHour = +time.split(":")[0];
+      const timeMinutes = +time.split(":")[1];
+      console.log(dayBookings);
+      const booking = dayBookings.find((booking) => {
+        const bookingHour = booking.date.getHours();
+        const bookingMinutes = booking.date.getMinutes();
+
+        return bookingHour === timeHour && bookingMinutes === timeMinutes;
+      });
+      if (!booking) return true;
+      return false;
+    });
+  }, [date, dayBookings]);
   //
   const handleBookingClick = () => {
     if (!isAuthenticaded) return signIn("google");
