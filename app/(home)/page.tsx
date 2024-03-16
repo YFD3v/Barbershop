@@ -10,6 +10,7 @@ export default async function Home() {
   //Chamando prisma e pegando barbearias
   //Foi criado o prisma em _lib
   const barbershops = await db.barbershop.findMany({});
+  console.log(barbershops);
   return (
     <div>
       <Header />
@@ -32,7 +33,7 @@ export default async function Home() {
         <h2 className="text-sm uppercase text-gray-400 font-bold mb-3">
           Agendamentos
         </h2>
-        <BookingItem />
+        {/* <BookingItem /> */}
       </div>
 
       <div className="mt-6">
