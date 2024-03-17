@@ -3,7 +3,7 @@ import { db } from "@/app/_lib/prisma";
 import BarbershopInfo from "./_components/BarbershopInfo";
 import ServiceItem from "./_components/ServiceItem";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/_lib/auth";
 
 interface BarberShopDetailsPageProps {
   //Resgatando o param id da URL
