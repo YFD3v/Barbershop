@@ -15,8 +15,14 @@ export default async function Home() {
   //Aula 4.2
   const session = await getServerSession(authOptions);
   //Estou utilizando o promisse.all, pois isso consome menos memória do banco já que executa as promisses paralelamente, simultaneamente
-  const [barbershops, confirmedBookings] = await Promise.all([
+  const [barbershops, recommendedBarbershops, confirmedBookings] = await Promise.all([
     db.barbershop.findMany({}),
+    db.barbershop.findMany({
+      orderBy: {
+        //Futuramente mudar para as estrelas
+        id: 'asc'
+      }
+    })
     session?.user
       ? db.booking.findMany({
           where: {
@@ -90,7 +96,7 @@ export default async function Home() {
         </h2>
 
         <div className="flex px-5 gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-          {barbershops.map((barbershop) => (
+          {recommendedBarbershops.map((barbershop) => (
             <div className="min-w-[167px]" key={barbershop.id}>
               <BarbershopItem barbershop={barbershop} />
             </div>
