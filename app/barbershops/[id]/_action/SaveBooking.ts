@@ -1,6 +1,7 @@
 "use server";
 
 import { db } from "@/app/_lib/prisma";
+import { revalidatePath } from "next/cache";
 
 //Aula 3.2 Backend da reserva
 interface SaveBookingParams {
@@ -19,4 +20,8 @@ export const saveBooking = async (params: SaveBookingParams) => {
          barbershopId: params.barbershopId
       }
    })
+
+   //Serve para atualizar a rota, evitando que não apareça a reserva para o usuário
+   revalidatePath("/bookings");
+   revalidatePath("/");
 };
