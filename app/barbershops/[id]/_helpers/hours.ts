@@ -3,17 +3,18 @@ import { addMinutes, format, setHours, setMinutes } from "date-fns";
 //Aula 3 fazendo a reserva
 //Para praticar, mudar para que cada barbearia escolha seu horario
 export function generateDayTimeList(date: Date): string[] {
-  const startTime = setMinutes(setHours(date, 9), 0);
-  const endTime = setMinutes(setHours(date, 21), 0)
-  const interval = 45
+  const actualHour = new Date().getHours() + 1;
+  const startTime = setMinutes(setHours(date, +actualHour), 0);
+  const endTime = setMinutes(setHours(date, 21), 0);
+  const interval = 45;
   const timeList: string[] = [];
 
   let currentTime = startTime;
 
-  while(currentTime < endTime){
-   timeList.push(format(currentTime, "HH:mm"))
-   currentTime = addMinutes(currentTime, interval)
+  while (currentTime < endTime) {
+    timeList.push(format(currentTime, "HH:mm"));
+    currentTime = addMinutes(currentTime, interval);
   }
 
-  return timeList
+  return timeList;
 }
