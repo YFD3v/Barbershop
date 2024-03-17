@@ -22,7 +22,7 @@ export default async function Home() {
         //Futuramente mudar para as estrelas
         id: 'asc'
       }
-    })
+    }),
     session?.user
       ? db.booking.findMany({
           where: {
