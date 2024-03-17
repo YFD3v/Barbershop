@@ -19,48 +19,46 @@ interface BookingItemProps {
 const BookingItem = ({ booking }: BookingItemProps) => {
   const isBookingConfirmed = isFuture(booking.date);
   return (
-    <div>
-      <Card>
-        <CardContent className="py-0 px-0 flex">
-          <div className="flex flex-[3] flex-col gap-2 py-5 pl-5">
-            {/* Instalei do shadcn a npx shadcn-ui@latest add badge e o avatar  */}
-            <Badge
-              variant={isBookingConfirmed ? "default" : "secondary"}
-              className="w-fit"
-            >
-              {isPast(booking.date) ? "Confirmado" : "Finalizado"}
-            </Badge>
-            <h2 className="font-bold">{booking.service.name}</h2>
-            <div className="flex items-center gap-2">
-              <Avatar className="h-6 w-6">
-                <AvatarImage src={booking.barbershop.imageUrl} />
-                <AvatarFallback></AvatarFallback>
-              </Avatar>
-              <h3 className="text-sm">{booking.barbershop.name}</h3>
-            </div>
+    <Card className="min-w-full">
+      <CardContent className="py-0 px-0 flex">
+        <div className="flex flex-[3] flex-col gap-2 py-5 pl-5">
+          {/* Instalei do shadcn a npx shadcn-ui@latest add badge e o avatar  */}
+          <Badge
+            variant={isBookingConfirmed ? "default" : "secondary"}
+            className="w-fit"
+          >
+            {isBookingConfirmed ? "Confirmado" : "Finalizado"}
+          </Badge>
+          <h2 className="font-bold">{booking.service.name}</h2>
+          <div className="flex items-center gap-2">
+            <Avatar className="h-6 w-6">
+              <AvatarImage src={booking.barbershop.imageUrl} />
+              <AvatarFallback></AvatarFallback>
+            </Avatar>
+            <h3 className="text-sm">{booking.barbershop.name}</h3>
           </div>
-          <div className="flex flex-1 flex-col items-center justify-center border-l border-solid border-secondary">
-            <p className="text-sm capitalize">
-              {format(booking.date, "MMMM", {
-                locale: ptBR,
-              })}
-            </p>
-            <p className="text-2xl">
-              {" "}
-              {format(booking.date, "dd", {
-                locale: ptBR,
-              })}
-            </p>
-            <p className="text-sm">
-              {" "}
-              {format(booking.date, "hh:mm", {
-                locale: ptBR,
-              })}
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+        </div>
+        <div className="flex flex-1 flex-col items-center justify-center border-l border-solid border-secondary">
+          <p className="text-sm capitalize">
+            {format(booking.date, "MMMM", {
+              locale: ptBR,
+            })}
+          </p>
+          <p className="text-2xl">
+            {" "}
+            {format(booking.date, "dd", {
+              locale: ptBR,
+            })}
+          </p>
+          <p className="text-sm">
+            {" "}
+            {format(booking.date, "hh:mm", {
+              locale: ptBR,
+            })}
+          </p>
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 
