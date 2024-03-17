@@ -14,8 +14,19 @@ Utiliando o prisma como ORM ao invés do sequelize
 
 
 Parte 2
-Foi corrigido a falta da imageUrl no services, e rodou a migrate denovo
+Foi corrigido a falta da imageUrl no services,  rodou a migrate denovo.
+Criou a pagina ed barbershops[id]
+Instalei o next-auth e @auth/prisma-adapter
+Fiz as atualizações no schema e rodei a migrate
 
+Depois fui no google developer console, criei o projeto do FSW barber
+criei a credencial adicionando em Origens Javascript Autorizadas:
+http:localhost:3000 //No depoly terá que mudar
+E em um URIS de redirecionamento autorizados eu coloquei o que a documentação do next Auth fala http://localhost:3000/api/auth/callback/google
+Depois peguei o client id e secret criei uma variavel no env e configurei no route.ts
+Enviei para produção o projeto pelo google.
+Criei o AuthProvider, e englobei no Layout pois a documentação pede isso
+INstalei o npx shadcn-ui@latest add sheet
 
 
 Mostra as tabelas organizadas
@@ -23,3 +34,7 @@ npx prisma studio
 
 Atualiza o db com o prisma
 npx prisma db push
+
+AO fazer uma mudança no schema e relizar a migrate com:
+npx prisma migrate dev --name "nome"
+Use npx prisma generate para atualizar as definições do Typescrip do prisma
