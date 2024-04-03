@@ -14,30 +14,33 @@ export default async function Home() {
   // const barbershops = await db.barbershop.findMany({});
   //Aula 4.2
   const session = await getServerSession(authOptions);
+
   //Estou utilizando o promisse.all, pois isso consome menos memória do banco já que executa as promisses paralelamente, simultaneamente
-  const [barbershops, recommendedBarbershops, confirmedBookings] = await Promise.all([
-    db.barbershop.findMany({}),
-    db.barbershop.findMany({
-      orderBy: {
-        //Futuramente mudar para as estrelas
-        id: 'asc'
-      }
-    }),
-    session?.user
-      ? db.booking.findMany({
-          where: {
-            userId: (session.user as any).id,
-            date: {
-              gte: new Date(),
+  const [barbershops, recommendedBarbershops, confirmedBookings] =
+    await Promise.all([
+      db.barbershop.findMany({ include: { rating: true } }),
+      db.barbershop.findMany({
+        orderBy: {
+          //Futuramente mudar para as estrelas
+          id: "asc",
+        },
+        include: { rating: true },
+      }),
+      session?.user
+        ? db.booking.findMany({
+            where: {
+              userId: (session.user as any).id,
+              date: {
+                gte: new Date(),
+              },
             },
-          },
-          include: {
-            service: true,
-            barbershop: true,
-          },
-        })
-      : Promise.resolve([]),
-  ]);
+            include: {
+              service: true,
+              barbershop: true,
+            },
+          })
+        : Promise.resolve([]),
+    ]);
 
   ///
   return (
