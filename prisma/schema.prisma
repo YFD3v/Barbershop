@@ -31,6 +31,7 @@ model User {
   sessions      Session[]
   //Estabelecendo as relações das tabelas
   bookings      Booking[]
+  ratings Ratings[]
 }
 
 model Barbershop {
@@ -41,6 +42,16 @@ model Barbershop {
   //Estabelecendo as relações das tabelas
   bookings Booking[]
   services Service[]
+  rating Ratings[]
+}
+
+model Ratings {
+  id           String     @id @default(uuid())
+  barbershopId String
+  barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
+  rating        Int
+  userId       String
+  user         User       @relation(fields: [userId], references: [id])
 }
 
 model Service {
@@ -50,6 +61,7 @@ model Service {
   //Estabelecendo uma relação one to many de barbershop par ao service
   barbershopId String
   barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
+  
   description  String
   //Estabelecendo as relações das tabelas
   bookings     Booking[]
