@@ -4,6 +4,8 @@ import BarbershopInfo from "./_components/BarbershopInfo";
 import ServiceItem from "./_components/ServiceItem";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/_lib/auth";
+import { getRatings } from "./_action/GetRatings";
+import { redirect } from "next/navigation";
 
 interface BarberShopDetailsPageProps {
   //Resgatando o param id da URL
@@ -17,10 +19,8 @@ const BarberShopDetailsPage = async ({
 }: BarberShopDetailsPageProps) => {
   //Usando em server ccomponentes para pegar a session ao inves de useSession
   const session = await getServerSession(authOptions);
-
   if (!params.id) {
-    //Redirecionar para home page
-    return null;
+    redirect("/");
   }
   const barbershop = await db.barbershop.findUnique({
     where: { id: params.id },
@@ -29,12 +29,13 @@ const BarberShopDetailsPage = async ({
   });
 
   if (!barbershop) {
-    //Redirecionar para home page
-    return null;
+    redirect("/");
   }
+  const ratingsWithUserId = await getRatings(barbershop?.id, session?.user.id as string);
+  const ratings = await getRatings(barbershop?.id)
   return (
     <div>
-      <BarbershopInfo barbershop={barbershop} />
+      <BarbershopInfo barbershop={barbershop}  ratings={ratings} ratingsWithUserId={ratingsWithUserId} />
       <div className="px-5 py-3 flex flex-col gap-4">
         {barbershop.services.map((service) => (
           <ServiceItem

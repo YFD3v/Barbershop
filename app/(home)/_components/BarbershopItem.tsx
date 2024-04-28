@@ -2,25 +2,29 @@
 import { Badge } from "@/app/_components/ui/badge";
 import { Button } from "@/app/_components/ui/button";
 import { Card, CardContent } from "@/app/_components/ui/card";
-import { Barbershop } from "@prisma/client";
+import { calculateRatingBarbershops } from "@/app/barbershops/[id]/_helpers/calculateRating";
+import { Prisma,  } from "@prisma/client";
 import { StarIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 interface BarbershopItemProps {
-  barbershop: Barbershop;
+  barbershop: Prisma.BarbershopGetPayload<{
+    include: {
+      rating: true;
+    };
+  }>;
 }
 
 const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
-  //Aula 2
+  const valueStar = calculateRatingBarbershops(barbershop.rating);
   const router = useRouter();
   const handleBookingClick = () => {
     router.push(`/barbershops/${barbershop.id}/`);
   };
-  //
   return (
-    <Card className="min-w-[147px] max-w-[167px] rounded-2xl">
-      <CardContent className="p-0 px-1">
+    <Card className="min-w-full rounded-2xl">
+      <CardContent className="p-0 px-1 pt-1">
         <div className="relative w-full h-[159px]">
           <div className="absolute z-50 top-2 left-2">
             <Badge
@@ -28,7 +32,7 @@ const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
               className=" opacity-90 flex gap-2 item-center  "
             >
               <StarIcon size={12} className="fill-primary text-primary" />
-              <span className="text-xs">5,0</span>
+              <span className="text-xs">{valueStar}</span>
             </Badge>
           </div>
           <Image
