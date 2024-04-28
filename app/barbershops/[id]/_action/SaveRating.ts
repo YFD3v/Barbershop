@@ -3,7 +3,6 @@
 import { db } from "@/app/_lib/prisma";
 import { revalidatePath } from "next/cache";
 
-//Aula 3.2 Backend da reserva
 interface SaveRatingParams {
   barbershopId: string;
   userId: string;
