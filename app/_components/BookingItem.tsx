@@ -32,7 +32,7 @@ import {
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
 
-//Aula 4 - seção de agendamentos
+
 interface BookingItemProps {
   booking: Prisma.BookingGetPayload<{
     include: {
@@ -44,7 +44,7 @@ interface BookingItemProps {
 //
 
 const BookingItem = ({ booking }: BookingItemProps) => {
-  //Aula 4
+
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
 
   const isBookingConfirmed = isFuture(booking.date);
@@ -67,7 +67,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
         <Card className="min-w-full">
           <CardContent className="py-0 px-0 flex">
             <div className="flex flex-[3] flex-col gap-2 py-5 pl-5">
-              {/* Instalei do shadcn a npx shadcn-ui@latest add badge e o avatar  */}
+              
               <Badge
                 variant={isBookingConfirmed ? "default" : "secondary"}
                 className="w-fit"
@@ -151,7 +151,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
                   }).format(+booking.service.price)}
                 </h3>
               </div>
-              {/* Ajustar essa logica para ser um carrinho ao invés de um serviço específico */}
+              
               <div className="flex justify-between">
                 <h3 className="text-gray-400 text-sm">Data </h3>
                 <h4 className="text-sm">
@@ -172,7 +172,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
               </div>
             </CardContent>
           </Card>
-          {/*Adicionar telefone da barbearia */}
+       
 
           <SheetFooter className="flex-row gap-3 mt-6">
             <SheetClose asChild>

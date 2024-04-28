@@ -14,7 +14,6 @@ import Link from "next/link";
 import SideMenu from "./SideMenu";
 
 const Header = () => {1
-  //Aula 2 parte 2 NextAuth, adicionei tudo que ta no Sheet
   return (
     <header>
       <Card>
@@ -37,6 +36,4 @@ const Header = () => {1
     </header>
   );
 };
-//Passo 3 - adicionei npx shadcn-ui@latest  add card
-//E o button npx shadcn-ui@latest add button
 export default Header;

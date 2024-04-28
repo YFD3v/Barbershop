@@ -1,7 +1,5 @@
 import { addMinutes, format, setHours, setMinutes } from "date-fns";
 
-//Aula 3 fazendo a reserva
-//Para praticar, mudar para que cada barbearia escolha seu horario
 export function generateDayTimeList(date: Date): string[] {
   const actualHour = new Date().getHours() + 1;
   const startTime = setMinutes(setHours(date, +actualHour), 0);

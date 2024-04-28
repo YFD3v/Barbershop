@@ -1,4 +1,3 @@
-//Aula 4 - seção de agendamentos
 import { getServerSession } from "next-auth";
 import Header from "../_components/Header";
 import { redirect } from "next/navigation";
@@ -7,7 +6,6 @@ import BookingItem from "../_components/BookingItem";
 import { authOptions } from "../_lib/auth";
 
 const BookingsPage = async () => {
-  //Verificando se o usuario esta logado ou não
   const session = await getServerSession(authOptions);
   if (!session?.user) return redirect("/");
 

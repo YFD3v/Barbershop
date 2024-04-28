@@ -41,7 +41,6 @@ const Search = ({defaultValues}: SearchProps) => {
 
   return (
     <div className="flex items-center gap-2">
-      {/* Instalei o input do shadcn: npx shadcn-ui@latest add input e form*/}
       <Form {...form}>
         <form
           className="flex w-full gap-4"
