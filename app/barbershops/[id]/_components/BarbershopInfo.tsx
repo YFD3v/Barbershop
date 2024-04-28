@@ -45,7 +45,6 @@ const BarbershopInfo = ({
 
   useEffect(() => {
     setValueStars(calculateRatingBarbershops(ratings));
-    userRatedOrNot();
   }, []);
 
   const handleBackClick = () => {
