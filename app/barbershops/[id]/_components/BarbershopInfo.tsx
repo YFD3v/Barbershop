@@ -12,19 +12,25 @@ import AvaliationMenu from "./AvaliationMenu";
 import { useEffect, useState } from "react";
 import { calculateRatingBarbershops } from "../_helpers/calculateRating";
 import { useSession } from "next-auth/react";
+import { Session } from "next-auth";
 interface BabershopInfoProps {
   barbershop: Barbershop;
   ratings: Ratings[];
   ratingsWithUserId: Ratings[];
 }
 
-const BarbershopInfo = ({ barbershop, ratingsWithUserId, ratings }: BabershopInfoProps) => {
+const BarbershopInfo = ({
+  barbershop,
+  ratingsWithUserId,
+  ratings,
+}: BabershopInfoProps) => {
   const router = useRouter();
   const [alreadyRated, setAlreadyReated] = useState(false);
+  const { data: session } = useSession();
   const [valueStars, setValueStars] = useState<number>(
     calculateRatingBarbershops(ratings)
   );
-  const { data: session } = useSession();
+
   const userRatedOrNot = () => {
     const rated = ratingsWithUserId.filter(
       (ratingWithUserId) =>
@@ -36,6 +42,7 @@ const BarbershopInfo = ({ barbershop, ratingsWithUserId, ratings }: BabershopInf
     }
     return setAlreadyReated(false);
   };
+
   useEffect(() => {
     setValueStars(calculateRatingBarbershops(ratings));
     userRatedOrNot();
@@ -109,7 +116,7 @@ const BarbershopInfo = ({ barbershop, ratingsWithUserId, ratings }: BabershopInf
                 Avaliar
               </Button>
             </SheetTrigger>
-            <SheetContent side="bottom" className="p-0">
+            <SheetContent onClick={() => userRatedOrNot()} side="bottom" className="p-0">
               <AvaliationMenu
                 barbershop={barbershop}
                 user={session?.user as any}
