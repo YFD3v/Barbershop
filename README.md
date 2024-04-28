@@ -1,3 +1,6 @@
+Obs.: Pagina home foi feita durante a FSW Week, sistema de painel, login, registro, avaliação e outros foi feito por mim
+
+
 Utiliando o prisma como ORM ao invés do sequelize
 
 1. Passo instalando o prisma npm i prisma --D
