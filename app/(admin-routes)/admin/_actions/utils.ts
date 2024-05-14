@@ -1,4 +1,5 @@
-import { FormData } from "../_components/CardAdmin/CardAdmin";
+import { FormData } from "../_components/CardAdmin/CardContentAdmin";
+
 
 export async function findUserAndServiceByBooking(barbershopId: string) {
   try {
