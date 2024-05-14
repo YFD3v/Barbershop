@@ -13,7 +13,7 @@ export async function POST(req: any, res: NextApiResponse) {
     });
     if (!existingUser) {
       console.log("Usuário não existe");
-      return false;
+      return;
     }
     await AuthService.createSessionToken({
       id: existingUser.id,

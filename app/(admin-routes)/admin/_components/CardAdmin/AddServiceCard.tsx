@@ -1,9 +1,10 @@
 import { Button } from "@/app/_components/ui/button";
 import { Input } from "@/app/_components/ui/input";
 import { FormEvent, useState } from "react";
-import { FormData } from "./CardAdmin";
+
 import { createService } from "../../_actions/utils";
 import { toast } from "sonner";
+import { FormData } from "./CardContentAdmin";
 
 interface AddServiceCardProps {
   barbershopId: string;
